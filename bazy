@@ -1,3 +1,156 @@
 =========================================================
-BAZY DANYCH LEKCJA 2 ULALA
+BAZY DANYCH LEKCJA 2 ULALA   12.09.2024
 =========================================================
+w shellu >
+show databases
+
+show collation - kolekcje pokazane jakie moga byc, np. tureckie
+mamy konkretne kodowanie do bazy jezykow 
+
+//w shellu//
+use egzamin;
+i bedziemy w egzaminie, a w php admin moze nie zadzialac
+
+select database(); - pokaz mi w jakiej jestem aktualnie bazie danych 
+czyli np. egzamin. 
+
+w sql tez powinno zadzialac!
+
+
+show table status; - pokazuje nam bardziej czytelny wynik, istotne informacje - np. jaka baza zalozona, dlugosci, itd.
+
+///////////////////////////
+information_schema columns;
+///////////////////////////
+w shellu:
+
+pokazuje nam kod kodowania
+select @@character_set_database;
+
+select @@collation_database; - jakim jezykiem jest kodowana baza danych
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PO PRZECINKU LACZYMY SOBIE POLECENIA!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+w sql:
+
+select @@character_set_database, @@collation_database;
+
+
+
+
+
+1. zapis
+
+create table persons
+(
+  Personid int not null auto_increment,
+  LastName varchar(255) not null,
+  FirstName varchar(255),
+  Age int,
+  PRIMARY KEY (Personid)
+);
+
+
+
+2. zapis
+
+create table persons
+(
+  Personid int not null auto_increment  PRIMARY KEY,
+  LastName varchar(255) not null,
+  FirstName varchar(255),
+  Age int
+ 
+);
+
+
+3. zapis z identity 
+''''''''''''
+zapis (1,1) - od 1 do 1 w góre. jak jest identity (1,2) to od 1 skaczemy co 2
+identity - autoinkrementacja
+''''''''''''
+
+create table persons
+(
+  Personid int IDENTITY(1,1)  PRIMARY KEY,
+  LastName varchar(255) not null,
+  FirstName varchar(255),
+  Age int
+ 
+);
+
+TWORZYMY BAZE DANYCH
+create database rezerwacja default character set utf8 default collate utf8_polish_ci;
+
+
+create table pasazer(
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    imie varchar(45) NOT NULL,
+    nazwisko varchar(45) NOT NULL,
+    pesel varchar(45) NOT NULL,
+    telefon varchar(45) NOT NULL,
+    mail varchar(45) NOT NULL,
+    adres_id int
+    );
+
+trzeba zrobic index zeby byly relacje
+
+create table adres(
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    powiat varchar(45) NOT NULL,
+    miejscowosc varchar(45) NOT NULL,
+    ulica varchar(45) NOT NULL,
+    numer_domu varchar(45) NOT NULL,
+    numer_lokalu varchar(45) NOT NULL
+    
+    );
+
+
+    add index(`id`); - dodac index
+    alter table `adres` add index(`id`); - 
+
+    INDEX POKAZUJE NAM GDZIE SIE ZNAJDUJE DANA TABELA, W KTOREJ BAZIE, W KTOREJ CZESCI SERWERA ZNAJDUJA SIE TE PLIKI
+    CZYLI INDEKSOWANIE TABEL  
+
+
+    //////create table rezerwacja(
+      id int NOT NULL AUTO_INCREMENT,
+      numer_siedzenia int NOT NULL,
+      bagaz varchar(45) NOT NULL,
+      pasazer_id int,
+      lot_numer //////
+
+
+    =====================
+    create table adres(
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    powiat varchar(45) NOT NULL,
+    miejscowosc varchar(45) NOT NULL,
+    ulica varchar(45) NOT NULL,
+    numer_domu varchar(45) NOT NULL,
+    numer_lokalu varchar(45) NOT NULL
+    
+    );
+
+
+create table pasazer(
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    imie varchar(45) NOT NULL,
+    nazwisko varchar(45) NOT NULL,
+    pesel varchar(45) NOT NULL,
+    telefon varchar(45) NOT NULL,
+    mail varchar(45) NOT NULL,
+    adres_id int,
+    FOREIGN KEY (adres_id) REFERENCES adres(id)
+    
+    );
+    =====================
+    JAK WYSWIETLIC TABELE? >>>>>>>>>>>>>>>>>>>>>
+    describe liga; w shellu wyswietla dana tabele
+
+
+    insert into przedmiot(nazwa) values('matematyka');
+    
+    
